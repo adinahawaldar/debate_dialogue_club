@@ -8,25 +8,53 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Navigation functionality
-const navbar = document.getElementById('navbar');
-const navToggle = document.getElementById('nav-toggle');
-const navMenu = document.getElementById('nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+
+
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
 
 // Mobile menu toggle
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+
 navToggle.addEventListener('click', function() {
     navMenu.classList.toggle('active');
     navToggle.classList.toggle('active');
 });
 
 // Close mobile menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
     link.addEventListener('click', function() {
         navMenu.classList.remove('active');
         navToggle.classList.remove('active');
+        
+        // Update active link
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
     });
 });
+
+// Smooth scrolling for navigation links
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+
 
 // Navbar scroll effect
 window.addEventListener('scroll', function() {
@@ -429,3 +457,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Export functions for global access
 window.scrollToSection = scrollToSection;
 window.showNotification = showNotification;
+
+
+
